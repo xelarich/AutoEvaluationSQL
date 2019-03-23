@@ -11,6 +11,7 @@
                     <div class="form-group">
                         <div class="container">
                             <form method="post" action="{{ url('questionnaire') }}">
+                                {{ csrf_field() }}
                                 <div class="row">
                                     <div class="input-group">
                                         <input class="form-control" name="requete" placeholder="Entrez votre requête">
@@ -25,6 +26,20 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Réponse traitement
+                </div>
+
+                <div class="card-body">
+                    @if(!empty($traitement))
+                        {{ $traitement }}
+                    @else
+                        Aucune requête mentionnée
+                    @endif
                 </div>
             </div>
         </div>
