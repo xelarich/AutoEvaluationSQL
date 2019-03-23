@@ -156,6 +156,21 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
+-- Listage de la structure de la table autoevaluationsql. question
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE IF NOT EXISTS `question` (
+  `idQuestion` int(11) NOT NULL AUTO_INCREMENT,
+  `IntituléQuestion` varchar(255) NOT NULL,
+  `Réponse` varchar(255) NOT NULL,
+  PRIMARY KEY (`idQuestion`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Listage des données de la table autoevaluationsql.question : ~0 rows (environ)
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` (`idQuestion`, `IntituléQuestion`, `Réponse`) VALUES
+	(1, 'Quels sont l\'identifiant et le titre de chaque film  ?', 'SELECT idFilm,titre FROM film;');
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+
 -- Listage de la structure de la table autoevaluationsql. realisateur
 DROP TABLE IF EXISTS `realisateur`;
 CREATE TABLE IF NOT EXISTS `realisateur` (
@@ -258,10 +273,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table autoevaluationsql.users : ~0 rows (environ)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+	(1, 'Enzo', 'enaverlant@gmail.com', NULL, '$2y$10$xYvi5xLt92fqS8uFV0lEMeWw7owcxw6y.4awclovR.huBzn3XDeGK', NULL, '2019-03-23 15:24:30', '2019-03-23 15:24:30');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
