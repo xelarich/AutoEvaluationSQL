@@ -14,7 +14,7 @@
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="input-group">
-                                        <input class="form-control" name="requete" placeholder="Entrez votre requête">
+                                        <input class="form-control" name="requete" placeholder="Entrez votre requête" required>
                                     </div>
                                 </div>
                                 <br>
@@ -29,19 +29,24 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    Réponse traitement
-                </div>
 
-                <div class="card-body">
+
                     @if(!empty($traitement))
-                        {{ $traitement }}
-                    @else
-                        Aucune requête mentionnée
+                    <div class="card">
+                        <div class="card-header">
+                            Réponse traitement
+                        </div>
+
+                        <div class="card-body">
+                            @for($i = 0; $i<count($traitement); $i++)
+                                {{ utf8_encode($traitement[$i]) }} <br><hr>
+                            @endfor
+                        @else
+                            Aucune requête mentionnée
+                    </div>
+                    </div>
                     @endif
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
