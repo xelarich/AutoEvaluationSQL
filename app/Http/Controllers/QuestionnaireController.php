@@ -35,40 +35,20 @@ class QuestionnaireController extends Controller
             $tableau[0] = $e->getCode();
             switch ($e->getCode()) {
                 case 42000:
-                    $tableau[0] = utf8_encode("Erreur Syntaxe de la requête");
+                    $tableau[0] = utf8_encode("Erreur syntaxe de la requête");
                     break;
                 case '42S22':
-                    $tableau[0] = "Le champ spécifié n'existe pas";
+                    $tableau[0] = utf8_encode('Le champ spécifié n\'existe pas');
                     break;
                 case '42S02':
-                    $tableau[0] = "La/Les table(s) spécifié n'existe pas";
+                    $tableau[0] = utf8_encode('La/Les table(s) spécifié n\'existe pas');
                     break;
             }
         }
-        if (!$error) {
-            $tableau = [];
-            $tableauReponse = [];
-            for ($i = 0; $i < sizeof($resultat); $i++) {
-                $donnees = "";
-                foreach ($resultat[$i] as $key => $valeur) {
-                    $donnees .= $valeur . ' ';
-                }
-                $tableau[$i] = $donnees;
-            }
+        if ($error) {
+            return view('questionnaire', ['traitement' => $tableau]);
         }
-        /*            $sqlRep = $requete->input('Select * from film');
-                    $queryRep = $connexion -prepare($sqlRep);
-                    $queryRep->execute();
-                    $reponse = $queryRep->fetchAll();
-                    for ($i = 0; $i < sizeof($reponse); $i++) {
-                        $donnees = "";
-                        foreach ($reponse[$i] as $key => $valeur) {
-                            $donnees .= $key . ' : ' . $valeur . ' ';
-                        }
-                        $tableauReponse[$i] = $donnees;
-                    }*/
-
-        return view('questionnaire', ['traitement' => $tableau]);
+        return view('questionnaire', ['traitement' => $resultat]);
 
     }
 }
