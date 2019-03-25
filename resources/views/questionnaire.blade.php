@@ -21,13 +21,50 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="input-group offset-5 col-2">
-                                            <input type="submit" class="btn btn-outline-dark" name="Tester"
-                                                   value="Tester" formaction="{{ url('questionnaire?question='.$question->idQ) }}">
+                                        <div class="input-group justify-content-lg-center">
+                                            <input type="submit" class="btn btn-outline-dark" name="Tester la requête"
+                                                   value="Tester la requête" formaction="{{ url('questionnaire?question='.$question->idQ) }}">
                                         </div>
                                     </div>
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Réponse traitement
+                                        </div>
+                                        @if(!empty($traitement))
+                                        @if (sizeof($traitement)== 1)
+                                            <div class="card-body">
+                                                {{ utf8_encode($traitement[0]) }}
+                                            </div>
+                                        @else
+                                            <div class="card-body">
+                                                <table class="col-12">
+                                                    <thead>
+                                                    <tr>
+                                                        @foreach ($traitement[0] as $key => $valeur)
+                                                            <th class="">{{ $key }}</th>
+                                                        @endforeach
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @for ($i = 1; $i < sizeof($traitement); $i++)
+                                                        <tr>
+                                                            @foreach ($traitement[$i] as $key => $valeur)
+                                                                <td scope="col"> {{ utf8_encode($valeur) }} </td>
+                                                            @endforeach
+                                                        </tr>
+                                                    @endfor
+                                                    </tbody>
+                                                </table>
+                                                @endif
+
+                                                @else
+                                                    Aucune requête mentionnée
+                                            </div>
+                                        @endif
+                                    </div>
                                     <div class="row">
-                                        <div class="input-group offset-5 col-2">
+                                        <div class="input-group justify-content-center">
                                             <input type="submit" class="btn btn-outline-dark" name="Valider"
                                                    value="Valider" formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
                                         </div>
@@ -38,43 +75,6 @@
                     </div>
                 </div>
 
-
-                <div class="card">
-                    <div class="card-header">
-                        Réponse traitement
-                    </div>
-                    @if(!empty($traitement)) )
-                    @if (sizeof($traitement)== 1)
-                        <div class="card-body">
-                            {{ utf8_encode($traitement[0]) }}
-                        </div>
-                    @else
-                        <div class="card-body">
-                            <table class="col-12">
-                                <thead>
-                                <tr>
-                                    @foreach ($traitement[0] as $key => $valeur)
-                                        <th class="">{{ $key }}</th>
-                                    @endforeach
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @for ($i = 1; $i < sizeof($traitement); $i++)
-                                    <tr>
-                                        @foreach ($traitement[$i] as $key => $valeur)
-                                            <td scope="col"> {{ utf8_encode($valeur) }} </td>
-                                        @endforeach
-                                    </tr>
-                                @endfor
-                                </tbody>
-                            </table>
-                            @endif
-
-                            @else
-                                Aucune requête mentionnée
-                        </div>
-                </div>
-                @endif
 
 
             </div>
