@@ -59,7 +59,7 @@
                             </table>
                             @elseif (sizeof($traitement)== 1)
                                 <div class="card-body">
-                                    {{utf8_encode($traitement[0]) }}
+                                    {{ utf8_encode($traitement[0]) }}
                                 </div>
                             @else
                                 Aucune requête mentionnée

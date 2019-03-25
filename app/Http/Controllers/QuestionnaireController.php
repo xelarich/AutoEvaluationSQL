@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Egulias\EmailValidator\Exception\ExpectingCTEXT;
+use App\Question;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PDO;
@@ -17,7 +18,6 @@ class QuestionnaireController extends Controller
     {
         return view('questionnaire');
     }
-
 
     public function requete(Request $requete)
     {
