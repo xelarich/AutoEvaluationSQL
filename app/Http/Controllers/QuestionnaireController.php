@@ -16,11 +16,7 @@ class QuestionnaireController extends Controller
 
     public function index()
     {
-        return view('questionnaire');
-    }
-    public function show($id){
-
-        return view("questionnaire",array('question' =>Question::find($id)));
+        return view('questionnaire',['question' => Question::where('idQ',1)->first(),'current_question' => 1]);
     }
 
     public function requete(Request $requete)
@@ -50,9 +46,23 @@ class QuestionnaireController extends Controller
             }
         }
         if ($error) {
-            return view('questionnaire', ['traitement' => $tableau]);
+            return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
         }
-        return view('questionnaire', ['traitement' => $resultat]);
+        return view('questionnaire', ['traitement' => $resultat, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
 
     }
+
+    public function validateNext(Request $requete){
+      $good = false;
+      $tableau = [];
+
+      if($good){
+        $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
+        return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
+      }
+      else{
+        $tableau[0] = utf8_encode('C\'est pas bon !');
+        return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
+    }
+  }
 }

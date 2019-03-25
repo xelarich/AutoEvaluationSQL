@@ -5,11 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{--{{ $question->question }}--}}</div>
+                    <div class="card-header">{{ $question->question }}</div>
                     <div class="card-body">
                         <div class="form-group">
                             <div class="container">
-                                <form method="post" action="{{ url('questionnaire') }}">
+                                <form method="post">
                                     {{ csrf_field() }}
 
                                     <div class="row">
@@ -22,8 +22,14 @@
                                     <br>
                                     <div class="row">
                                         <div class="input-group offset-5 col-2">
+                                            <input type="submit" class="btn btn-outline-dark" name="Tester"
+                                                   value="Tester" formaction="{{ url('questionnaire?question='.$question->idQ) }}">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="input-group offset-5 col-2">
                                             <input type="submit" class="btn btn-outline-dark" name="Valider"
-                                                   value="Valider">
+                                                   value="Valider" formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
                                         </div>
                                     </div>
                                 </form>

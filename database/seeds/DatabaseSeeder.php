@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+      DB::table('questions')->insert([
+        ['question' => 'Fait beau ?','reponse' => 'cc'],
+        ['question' => 'On mnage koi ?','reponse' => 'cc'],
+      ]);
     }
 }

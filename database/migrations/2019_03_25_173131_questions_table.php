@@ -16,7 +16,7 @@ class QuestionsTable extends Migration
         Schema::create('questions', function(Blueprint $table) {
             $table->increments('idQ');
             $table->string('question');
-            $table->boolean('premier');
+            $table->boolean('premier')->default(false);
             $table->string('reponse');
             $table->timestamps();
         });
