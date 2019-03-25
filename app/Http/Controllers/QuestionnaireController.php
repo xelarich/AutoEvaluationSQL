@@ -18,6 +18,10 @@ class QuestionnaireController extends Controller
     {
         return view('questionnaire');
     }
+    public function show($id){
+
+        return view("questionnaire",array('question' =>Question::find($id)));
+    }
 
     public function requete(Request $requete)
     {
