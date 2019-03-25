@@ -920,7 +920,9 @@
     <table id="232" parent="2" name="password_resets">
       <Collation>utf8mb4_unicode_ci</Collation>
     </table>
-    <table id="233" parent="2" name="question"/>
+    <table id="233" parent="2" name="questions">
+      <Collation>utf8mb4_unicode_ci</Collation>
+    </table>
     <table id="234" parent="2" name="realisateur"/>
     <table id="235" parent="2" name="realise"/>
     <table id="236" parent="2" name="users">
@@ -1024,158 +1026,174 @@ nomGenre</ColNames>
       <ColNames>email</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="254" parent="233" name="idQuestion">
+    <column id="254" parent="233" name="idQ">
       <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>int(10) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="233" name="IntituléQuestion">
+    <column id="255" parent="233" name="question">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="233" name="Réponse">
+    <column id="256" parent="233" name="premier">
       <Position>3</Position>
+      <DataType>tinyint(1)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="257" parent="233" name="reponse">
+      <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="257" parent="233" name="PRIMARY">
+    <column id="258" parent="233" name="created_at">
+      <Position>5</Position>
+      <DataType>timestamp|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="259" parent="233" name="updated_at">
+      <Position>6</Position>
+      <DataType>timestamp|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="260" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>idQuestion</ColNames>
+      <ColNames>idQ</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="258" parent="234" name="idReal">
+    <column id="261" parent="234" name="idReal">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="234" name="prenom">
+    <column id="262" parent="234" name="prenom">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="234" name="nom">
+    <column id="263" parent="234" name="nom">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="234" name="anneeN">
+    <column id="264" parent="234" name="anneeN">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="234" name="villeN">
+    <column id="265" parent="234" name="villeN">
       <Position>5</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="234" name="paysN">
+    <column id="266" parent="234" name="paysN">
       <Position>6</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="264" parent="234" name="PRIMARY">
+    <key id="267" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idReal</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="265" parent="235" name="idFilm">
+    <column id="268" parent="235" name="idFilm">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="235" name="idReal">
+    <column id="269" parent="235" name="idReal">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="267" parent="235" name="idReal">
+    <index id="270" parent="235" name="idReal">
       <ColNames>idReal</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="268" parent="235" name="PRIMARY">
+    <key id="271" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idFilm
 idReal</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="269" parent="235" name="realise_ibfk_1">
+    <foreign-key id="272" parent="235" name="realise_ibfk_1">
       <ColNames>idFilm</ColNames>
       <RefSchemaName>autoevaluationsql</RefSchemaName>
       <RefTableName>film</RefTableName>
       <RefColNames>idFilm</RefColNames>
     </foreign-key>
-    <foreign-key id="270" parent="235" name="realise_ibfk_2">
+    <foreign-key id="273" parent="235" name="realise_ibfk_2">
       <ColNames>idReal</ColNames>
       <RefSchemaName>autoevaluationsql</RefSchemaName>
       <RefTableName>realisateur</RefTableName>
       <RefColNames>idReal</RefColNames>
     </foreign-key>
-    <column id="271" parent="236" name="id">
+    <column id="274" parent="236" name="id">
       <Position>1</Position>
       <DataType>bigint(20) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="236" name="name">
+    <column id="275" parent="236" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="236" name="email">
+    <column id="276" parent="236" name="email">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="236" name="email_verified_at">
+    <column id="277" parent="236" name="email_verified_at">
       <Position>4</Position>
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="236" name="password">
+    <column id="278" parent="236" name="password">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="236" name="remember_token">
+    <column id="279" parent="236" name="remember_token">
       <Position>6</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="236" name="created_at">
+    <column id="280" parent="236" name="created_at">
       <Position>7</Position>
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="278" parent="236" name="updated_at">
+    <column id="281" parent="236" name="updated_at">
       <Position>8</Position>
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="279" parent="236" name="users_email_unique">
+    <index id="282" parent="236" name="users_email_unique">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="280" parent="236" name="PRIMARY">
+    <key id="283" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="281" parent="236" name="users_email_unique">
+    <key id="284" parent="236" name="users_email_unique">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
     </key>
