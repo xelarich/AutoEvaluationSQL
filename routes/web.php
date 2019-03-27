@@ -22,7 +22,11 @@ Auth::routes();
 Route::get('/cours', 'CoursController@index')->name('cours');
 
 Auth::routes();
-
 Route::get('/questionnaire', 'QuestionnaireController@index')->name('questionnaire');
+
 Route::post('questionnaire', 'QuestionnaireController@requete')->name('questionnaire');
+
 Route::post('questionnaireValidate', 'QuestionnaireController@validateNext')->name('questionnaireValidate');
+
+//Route::get('/question/{id}', 'QuestionnnaireController@lireQuestion')->name('lire_la_question');
+

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Question;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use PDO;
 use PDOException;
 use TheSeer\Tokenizer\Exception;
@@ -14,9 +16,11 @@ class QuestionnaireController extends Controller
 {
 
 
+
     public function index()
+
     {
-        return view('questionnaire',['question' => Question::where('idQ',1)->first(),'current_question' => 1]);
+        return view('questionnaire',['question' => Question::where('idQ',1)->first()]);
     }
 
     public function requete(Request $requete)
@@ -53,9 +57,16 @@ class QuestionnaireController extends Controller
     }
 
     public function validateNext(Request $requete){
-      $good = false;
-      $tableau = [];
-
+      $good = true;
+      $reponse =$requete->input('question');
+      $tmp=DB::table('questions')->where('idQ', $reponse)->pluck('reponse');
+      $sql=substr($tmp,2,sizeof($tmp)-3);
+      $connexion = NEW PDO('mysql:host=localhost;dbname=autoevaluationsql', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
+      $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+      $query = $connexion->prepare($sql);
+      $query->execute();
+      $resultat = $query->fetchAll();
+      $tableau=[];
       if($good){
         $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
         return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
@@ -64,5 +75,11 @@ class QuestionnaireController extends Controller
         $tableau[0] = utf8_encode('C\'est pas bon !');
         return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
     }
-  }
+    }
+
+   public function lireQuestion($id){
+        var_dump(gettype($id));
+        $question=DB::table(questions)->when('idQ',$id+1)->get();
+       return view('questionnaire', ['question' =>Question::where('idQ',1)->first(),'current_question' => 2]);
+   }
 }

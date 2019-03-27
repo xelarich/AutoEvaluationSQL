@@ -15,28 +15,30 @@
                                     <div class="row">
                                         <div class="input-group">
                                             <input class="form-control" name="requete"
-                                                   placeholder="Entrez votre requête" required>
+                                                   placeholder="Entrez votre requête">
                                         </div>
-
                                     </div>
                                     <br>
                                     <div class="row">
                                         <div class="input-group justify-content-lg-center">
                                             <input type="submit" class="btn btn-outline-dark" name="Tester la requête"
-                                                   value="Tester la requête" formaction="{{ url('questionnaire?question='.$question->idQ) }}">
+                                                   value="Tester la requête"
+                                                   formaction="{{ url('questionnaire?question='.$question->idQ) }}">
                                         </div>
                                     </div>
 
-                                    <div class="card">
-                                        <div class="card-header">
-                                            Réponse traitement
-                                        </div>
-                                        @if(!empty($traitement))
+                                    <hr>
+
+                                    @if(!empty($traitement))
+                                        <input name="invisible" type="hidden" value="$traitement">
                                         @if (sizeof($traitement)== 1)
                                             <div class="card-body">
                                                 {{ utf8_encode($traitement[0]) }}
                                             </div>
                                         @else
+                                            <div class="card-body">
+                                                Réponse traitement
+                                            </div>
                                             <div class="card-body">
                                                 <table class="col-12">
                                                     <thead>
@@ -56,13 +58,27 @@
                                                     @endfor
                                                     </tbody>
                                                 </table>
+                                                <hr>
+                                                <div class="row">
+                                                    @if(!empty($traitement))
+                                                    <div class="input-group offset-3 col-2">
+                                                        <input type="submit" class="btn btn-outline-dark" name="Valider"
+                                                               value="Valider"
+                                                               formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
+                                                    </div>
+                                                    <div class="input-group offset-2 col-2">
+                                                        <input type="submit" class="btn btn-outline-dark" name="Passer"
+                                                               value="Passer la question"
+                                                               formaction="{{ url('questionnaire?question='.$question->idQ)  }}">
+                                                    </div>
+                                                    @endif
+                                                </div>
                                                 @endif
 
                                                 @else
                                                     Aucune requête mentionnée
                                             </div>
                                         @endif
-                                    </div>
                                     <div class="row">
                                         <div class="input-group justify-content-center">
                                             <input type="submit" class="btn btn-outline-dark" name="Valider"
@@ -74,7 +90,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
             </div>
