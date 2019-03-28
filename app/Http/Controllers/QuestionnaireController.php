@@ -57,7 +57,7 @@ class QuestionnaireController extends Controller
     }
 
     public function validateNext(Request $requete){
-      $good = true;
+      $good = false;
       $reponse =$requete->input('question');
       $tmp=DB::table('questions')->where('idQ', $reponse)->pluck('reponse');
       $sql=substr($tmp,2,sizeof($tmp)-3);
@@ -68,12 +68,14 @@ class QuestionnaireController extends Controller
       $resultat = $query->fetchAll();
       var_dump($resultat);
       $tableau=[];
+
       if($good){
         $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
         return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
       }
       else{
-        $tableau[0] = utf8_encode('C\'est pas bon !');
+        $tableau[0] = utf8_encode('C\'est pas bon !, le resultat attendu est :');
+
         return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
     }
     }

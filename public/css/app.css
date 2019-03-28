@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-
+.img-fluid{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+body{
+    background-color: black;
+}
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+       <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ $question->question }}</div>
+                    <img src="images\test.jpg" class="img-fluid">
+
+                    <div class="card-header">{{$question->question }}</div>
                     <div class="card-body">
                         <div class="form-group">
 
@@ -34,11 +36,11 @@
                                         <input name="traitement" type="hidden" value="$traitement">
                                         @if (sizeof($traitement)== 1)
                                             <div class="card-body">
-                                                {{ utf8_encode($traitement[0]) }}
+                                                {{ ($traitement[0]) }}
                                             </div>
                                         @else
                                             <div class="card-body">
-                                                Réponse traitement
+                                                Votre requête renvoie :
                                             </div>
                                             <div class="card-body">
                                                 <table class="col-12">
