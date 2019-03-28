@@ -87,6 +87,14 @@
                                                        formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
                                             </div>
                                         </div>
+                                        <div class="input-group offset-2 col-2">
+                                            <?php $id = $question->idQ + 1;?>
+                                            <input type="submit"
+                                                   class="btn btn-outline-dark"
+                                                   name="Passer"
+                                                   value="Question Suivante"
+                                                   formaction="{{ url('questionnaire?question='.$id)  }}">
+                                        </div>
                                 </form>
                             </div>
                         </div>
