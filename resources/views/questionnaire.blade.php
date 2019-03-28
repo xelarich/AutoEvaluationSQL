@@ -8,6 +8,7 @@
                     <div class="card-header">{{ $question->question }}</div>
                     <div class="card-body">
                         <div class="form-group">
+
                             <div class="container">
                                 <form method="post">
                                     {{ csrf_field() }}
@@ -30,7 +31,7 @@
                                     <hr>
 
                                     @if(!empty($traitement))
-                                        <input name="invisible" type="hidden" value="$traitement">
+                                        <input name="traitement" type="hidden" value="$traitement">
                                         @if (sizeof($traitement)== 1)
                                             <div class="card-body">
                                                 {{ utf8_encode($traitement[0]) }}
@@ -61,16 +62,14 @@
                                                 <hr>
                                                 <div class="row">
                                                     @if(!empty($traitement))
-                                                    <div class="input-group offset-3 col-2">
-                                                        <input type="submit" class="btn btn-outline-dark" name="Valider"
-                                                               value="Valider"
-                                                               formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
-                                                    </div>
-                                                    <div class="input-group offset-2 col-2">
-                                                        <input type="submit" class="btn btn-outline-dark" name="Passer"
-                                                               value="Passer la question"
-                                                               formaction="{{ url('questionnaire?question='.$question->idQ)  }}">
-                                                    </div>
+                                                        <div class="input-group offset-2 col-2">
+                                                            <?php $id = $question->idQ + 1;?>
+                                                                <input type="submit"
+                                                                                                      class="btn btn-outline-dark"
+                                                                                                      name="Passer"
+                                                                                                      value="Passer la question"
+                                                                                                      formaction="{{ url('questionnaire?question='.$id)  }}">
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 @endif
@@ -79,12 +78,13 @@
                                                     Aucune requête mentionnée
                                             </div>
                                         @endif
-                                    <div class="row">
-                                        <div class="input-group justify-content-center">
-                                            <input type="submit" class="btn btn-outline-dark" name="Valider"
-                                                   value="Valider" formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
+                                        <div class="row">
+                                            <div class="input-group justify-content-center">
+                                                <input type="submit" class="btn btn-outline-dark" name="Valider"
+                                                       value="Valider"
+                                                       formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
+                                            </div>
                                         </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>

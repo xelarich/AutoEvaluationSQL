@@ -28,5 +28,5 @@ Route::post('questionnaire', 'QuestionnaireController@requete')->name('questionn
 
 Route::post('questionnaireValidate', 'QuestionnaireController@validateNext')->name('questionnaireValidate');
 
-//Route::get('/question/{id}', 'QuestionnnaireController@lireQuestion')->name('lire_la_question');
+Route::get('/questionnaire/{id}', 'QuestionnnaireController@lireQuestion')->name('lire_la_question');
 

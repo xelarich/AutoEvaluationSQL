@@ -66,6 +66,7 @@ class QuestionnaireController extends Controller
       $query = $connexion->prepare($sql);
       $query->execute();
       $resultat = $query->fetchAll();
+      var_dump($resultat);
       $tableau=[];
       if($good){
         $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
@@ -77,9 +78,4 @@ class QuestionnaireController extends Controller
     }
     }
 
-   public function lireQuestion($id){
-        var_dump(gettype($id));
-        $question=DB::table(questions)->when('idQ',$id+1)->get();
-       return view('questionnaire', ['question' =>Question::where('idQ',1)->first(),'current_question' => 2]);
-   }
 }
