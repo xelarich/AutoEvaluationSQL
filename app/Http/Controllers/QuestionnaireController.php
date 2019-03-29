@@ -33,7 +33,6 @@ class QuestionnaireController extends Controller
             $query = $connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll();
-            var_dump($resultat);
         } catch (PDOException $e) {
             $error = true;
             $tableau[0] = $e->getCode();
@@ -52,12 +51,19 @@ class QuestionnaireController extends Controller
         if ($error) {
             return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
-        return view('questionnaire', ['traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+        return view('questionnaire', ['sql'=>$sql,'traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
 
     }
 
     public function validateNext(Request $requete)
     {
+        $connexion = NEW PDO('mysql:host=localhost;dbname=autoevaluationsql', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
+        $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $sql = $requete->input('requete');
+        $query = $connexion->prepare($sql);
+        $query->execute();
+        $resultatUser = $query->fetchAll();
+        //---------------------------------------//
         $good = false;
         $reponse = $requete->input('question');
         $tmp = DB::table('questions')->where('idQ', $reponse)->pluck('reponse');
@@ -68,7 +74,12 @@ class QuestionnaireController extends Controller
         $query->execute();
         $resultat = $query->fetchAll();
         var_dump($resultat);
-        $tableau = [];
+        var_dump($resultatUser);
+        foreach ($resultatUser as $key => $valeur){
+            if(array_key_exists($key,$resultat)){
+                var_dump(array_diff_assoc($resultat[$key],$resultatUser[$key]));
+            }
+        }
 
         if ($good) {
             $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');

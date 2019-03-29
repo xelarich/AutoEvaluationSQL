@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-       <div class="container">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -17,8 +17,13 @@
 
                                     <div class="row">
                                         <div class="input-group">
+                                            @if (!empty($sql))
                                             <input class="form-control" name="requete"
-                                                   placeholder="Entrez votre requête">
+                                                   placeholder="Entrez votre requête" value=" {{ $sql }} " required>
+                                                @else
+                                                <input class="form-control" name="requete"
+                                                       placeholder="Entrez votre requête"  required>
+                                            @endif
                                         </div>
                                     </div>
                                     <br>
@@ -66,11 +71,11 @@
                                                     @if(!empty($traitement))
                                                         <div class="input-group offset-2 col-2">
                                                             <?php $id = $question->idQ + 1;?>
-                                                                <input type="submit"
-                                                                                                      class="btn btn-outline-dark"
-                                                                                                      name="Passer"
-                                                                                                      value="Passer la question"
-                                                                                                      formaction="{{ url('questionnaire?question='.$id)  }}">
+                                                            <input type="submit"
+                                                                   class="btn btn-outline-dark"
+                                                                   name="Passer"
+                                                                   value="Passer la question"
+                                                                   formaction="{{ url('questionnaire?question='.$id)  }}">
                                                         </div>
                                                     @endif
                                                 </div>
