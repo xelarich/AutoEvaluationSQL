@@ -34,7 +34,7 @@
 
                                     @if(!empty($traitement))
                                         <input name="traitement" type="hidden" value="$traitement">
-                                        @if (sizeof($traitement)== 1)
+                                        @if (is_string($traitement[0]))
                                             <div class="card-body">
                                                 {{ ($traitement[0]) }}
                                             </div>
@@ -52,7 +52,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @for ($i = 1; $i < sizeof($traitement); $i++)
+                                                    @for ($i = 0; $i < sizeof($traitement); $i++)
                                                         <tr>
                                                             @foreach ($traitement[$i] as $key => $valeur)
                                                                 <td scope="col"> {{ utf8_encode($valeur) }} </td>

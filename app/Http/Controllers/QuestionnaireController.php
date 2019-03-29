@@ -16,11 +16,10 @@ class QuestionnaireController extends Controller
 {
 
 
-
     public function index()
 
     {
-        return view('questionnaire',['question' => Question::where('idQ',1)->first()]);
+        return view('questionnaire', ['question' => Question::where('idQ', 1)->first()]);
     }
 
     public function requete(Request $requete)
@@ -34,50 +33,51 @@ class QuestionnaireController extends Controller
             $query = $connexion->prepare($sql);
             $query->execute();
             $resultat = $query->fetchAll();
+            var_dump($resultat);
         } catch (PDOException $e) {
             $error = true;
             $tableau[0] = $e->getCode();
             switch ($e->getCode()) {
-                case 42000:
-                    $tableau[0] = utf8_encode("Erreur syntaxe de la requête");
+                case '42000':
+                    $tableau[0] = "Erreur syntaxe de la requête";
                     break;
                 case '42S22':
-                    $tableau[0] = utf8_encode('Le champ spécifié n\'existe pas');
+                    $tableau[0] = 'Le champ spécifié n\'existe pas';
                     break;
                 case '42S02':
-                    $tableau[0] = utf8_encode('La/Les table(s) spécifié n\'existe pas');
+                    $tableau[0] = 'La/Les table(s) spécifié n\'existe pas';
                     break;
             }
         }
         if ($error) {
-            return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
+            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
-        return view('questionnaire', ['traitement' => $resultat, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
+        return view('questionnaire', ['traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
 
     }
 
-    public function validateNext(Request $requete){
-      $good = false;
-      $reponse =$requete->input('question');
-      $tmp=DB::table('questions')->where('idQ', $reponse)->pluck('reponse');
-      $sql=substr($tmp,2,sizeof($tmp)-3);
-      $connexion = NEW PDO('mysql:host=localhost;dbname=autoevaluationsql', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
-      $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-      $query = $connexion->prepare($sql);
-      $query->execute();
-      $resultat = $query->fetchAll();
-      var_dump($resultat);
-      $tableau=[];
+    public function validateNext(Request $requete)
+    {
+        $good = false;
+        $reponse = $requete->input('question');
+        $tmp = DB::table('questions')->where('idQ', $reponse)->pluck('reponse');
+        $sql = substr($tmp, 2, sizeof($tmp) - 3);
+        $connexion = NEW PDO('mysql:host=localhost;dbname=autoevaluationsql', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
+        $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $query = $connexion->prepare($sql);
+        $query->execute();
+        $resultat = $query->fetchAll();
+        var_dump($resultat);
+        $tableau = [];
 
-      if($good){
-        $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
-        return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
-      }
-      else{
-        $tableau[0] = utf8_encode('C\'est pas bon !, le resultat attendu est :');
+        if ($good) {
+            $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
+            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+        } else {
+            $tableau[0] = utf8_encode('C\'est pas bon !, le resultat attendu est :');
 
-        return view('questionnaire', ['traitement' => $tableau, 'question' =>Question::where('idQ',$requete->input('question'))->first()]);
-    }
+            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+        }
     }
 
 }
