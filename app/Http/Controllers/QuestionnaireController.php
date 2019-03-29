@@ -51,7 +51,7 @@ class QuestionnaireController extends Controller
         if ($error) {
             return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
-        return view('questionnaire', ['sql'=>$sql,'traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+        return view('questionnaire', ['sql' => $sql, 'traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
 
     }
 
@@ -73,19 +73,45 @@ class QuestionnaireController extends Controller
         $query = $connexion->prepare($sql);
         $query->execute();
         $resultat = $query->fetchAll();
-        var_dump($resultat);
-        var_dump($resultatUser);
-        foreach ($resultatUser as $key => $valeur){
-            if(array_key_exists($key,$resultat)){
-                var_dump(array_diff_assoc($resultat[$key],$resultatUser[$key]));
+
+
+        if ($resultatUser[0] == $resultat[0]) {
+            var_dump('cegal');
+            var_dump($resultatUser[0] , $resultat[0]);
+            foreach ($resultatUser as $key => $valeur) {
+                if (array_key_exists($key, $resultat)) {
+                    $tabres = (array_diff_assoc($resultat[$key], $resultatUser[$key]));
+                    if (!$tabres) {
+                        var_dump($tabres);
+                        var_dump("gg");
+                        $good=true;
+                    } else {
+                        var_dump($tabres);
+                        var_dump("pas gg");
+                        $good=false;
+                    }
+                }
+
             }
+        } else {
+            var_dump($resultatUser[0] , $resultat[0]);
+            var_dump("cestpasegal");
+            /*$tableau[0] = utf8_encode('Erreur de requête');
+            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);*/
+            $good = false;
         }
+        /*$tabres=array_diff_assoc($resultat[$key],$resultatUser[$key]);
+            if(array_key_exists($key,$resultat)){
+                var_dump($tabres);
+
+            }*/
+
 
         if ($good) {
             $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
             return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         } else {
-            $tableau[0] = utf8_encode('C\'est pas bon !, le resultat attendu est :');
+            $tableau[0] = utf8_encode("Erreur, votre requete n'est pas correcte");
 
             return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
