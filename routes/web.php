@@ -21,6 +21,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 Route::get('/cours', 'CoursController@index')->name('cours');
+Auth::routes();
+Route::get('/coursPartie1', 'CourspiController@index')->name('courspi');
+Route::get('/coursPartie2', 'CourspiiController@index')->name('courspii');
+Route::get('/coursPartie3', 'CourspiiiController@index')->name('courspiii');
 
 Auth::routes();
 Route::get('/questionnaire', 'QuestionnaireController@index')->name('questionnaire');

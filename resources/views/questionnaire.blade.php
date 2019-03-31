@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <img src="images\test.jpg" class="img-fluid">
+                    <img src="images\mld.jpg" class="img-fluid">
 
                     <div class="card-header">{{$question->question }}</div>
                     <div class="card-body">
