@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
 
-                                    <hr>
+                                <<hr>
 
                                     @if(!empty($traitement))
                                         <input name="traitement" type="hidden" value="$traitement">
