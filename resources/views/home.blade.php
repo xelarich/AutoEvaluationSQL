@@ -27,15 +27,17 @@
 <br>
 <div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
     <div class="w3-display-middle" style="white-space:nowrap;">
-        <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Projet S4 : Auto-évaluation SQL<span
+        <span class="w3-center w3-padding-large w3-black w3-xxlarge w3-wide w3-animate-opacity">Plateforme d’autoévaluation SQL<span
                 class="w3-hide-small"></span> </span>
     </div>
 </div>
 
 <br><br>
-<br><h3 class="centrer">Description rapide / principe du site </h3>
+<br><p class="w3-center w3-padding-large w3-large">Testez vos compétences sur le langage SQL. Cours et questionnaire sont à votre disposition<p/>
 
 <br><br><br>
+
+
 
 <img src="images\database-icon.png" class="centrer">
 
