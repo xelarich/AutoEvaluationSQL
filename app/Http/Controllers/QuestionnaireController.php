@@ -41,15 +41,15 @@ class QuestionnaireController extends Controller
                     $tableau[0] = "Erreur syntaxe de la requête";
                     break;
                 case '42S22':
-                    $tableau[0] = 'Le champ spécifié n\'existe pas';
+                    $tableau[0] = "Le champ spécifié n'existe pas";
                     break;
                 case '42S02':
-                    $tableau[0] = 'La/Les table(s) spécifié n\'existe pas';
+                    $tableau[0] = "La/Les table(s) spécifié n'existe pas";
                     break;
             }
         }
         if ($error) {
-            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+            return view('questionnaire', ['sql' => $sql, 'traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
         return view('questionnaire', ['sql' => $sql, 'traitement' => $resultat, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
 
@@ -59,8 +59,8 @@ class QuestionnaireController extends Controller
     {
         $connexion = NEW PDO('mysql:host=localhost;dbname=autoevaluationsql', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,));
         $connexion->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-        $sql = $requete->input('requete');
-        $query = $connexion->prepare($sql);
+        $sqlUser = $requete->input('requete');
+        $query = $connexion->prepare($sqlUser);
         $query->execute();
         $resultatUser = $query->fetchAll();
         //---------------------------------------//
@@ -73,47 +73,24 @@ class QuestionnaireController extends Controller
         $query = $connexion->prepare($sql);
         $query->execute();
         $resultat = $query->fetchAll();
-
-
         if ($resultatUser[0] == $resultat[0]) {
-            var_dump('cegal');
-            var_dump($resultatUser[0] , $resultat[0]);
+            $good = true;
             foreach ($resultatUser as $key => $valeur) {
                 if (array_key_exists($key, $resultat)) {
-                    $tabres = (array_diff_assoc($resultat[$key], $resultatUser[$key]));
-                    if (!$tabres) {
-                        var_dump($tabres);
-                        var_dump("gg");
-                        $good=true;
-                    } else {
-                        var_dump($tabres);
-                        var_dump("pas gg");
-                        $good=false;
+                    if (!(array_diff_assoc($resultat[$key], $resultatUser[$key]) == [])) {
+                        $good = false;
+                        break;
                     }
                 }
-
             }
-        } else {
-            var_dump($resultatUser[0] , $resultat[0]);
-            var_dump("cestpasegal");
-            /*$tableau[0] = utf8_encode('Erreur de requête');
-            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);*/
-            $good = false;
+
         }
-        /*$tabres=array_diff_assoc($resultat[$key],$resultatUser[$key]);
-            if(array_key_exists($key,$resultat)){
-                var_dump($tabres);
-
-            }*/
-
-
         if ($good) {
-            $tableau[0] = utf8_encode('Bravo ! Vous pouvez passer à la question suivante !');
-            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+            $tableau[0] = "Bravo ! Vous pouvez passer à la question suivante !";
+            return view('questionnaire', ['good' => $good, 'sql' => $sqlUser, 'traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         } else {
-            $tableau[0] = utf8_encode("Erreur, votre requete n'est pas correcte");
-
-            return view('questionnaire', ['traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
+            $tableau[0] = "Erreur, votre requete n'est pas correcte";
+            return view('questionnaire', ['good' => $good,'sql' => $sqlUser, 'traitement' => $tableau, 'question' => Question::where('idQ', $requete->input('question'))->first()]);
         }
     }
 

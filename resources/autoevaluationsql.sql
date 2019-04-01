@@ -1,15 +1,4 @@
-- --------------------------------------------------------
--- Hôte :                        localhost
--- Version du serveur:           5.7.24 - MySQL Community Server (GPL)
--- SE du serveur:                Win64
--- HeidiSQL Version:             9.5.0.5332
--- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
 -- Listage de la structure de la base pour autoevaluationsql
@@ -156,20 +145,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
--- Listage de la structure de la table autoevaluationsql. question
-DROP TABLE IF EXISTS `question`;
-CREATE TABLE IF NOT EXISTS `question` (
-																				`idQuestion` int(11) NOT NULL AUTO_INCREMENT,
-																				`IntituléQuestion` varchar(255) NOT NULL,
-																				`Réponse` varchar(255) NOT NULL,
-																				PRIMARY KEY (`idQuestion`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
--- Listage des données de la table autoevaluationsql.question : ~0 rows (environ)
-/*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` (`idQuestion`, `IntituléQuestion`, `Réponse`) VALUES
-(1, 'Quels sont l\'identifiant et le titre de chaque film  ?', 'SELECT idFilm,titre FROM film;');
-/*!40000 ALTER TABLE `question` ENABLE KEYS */;
 
 -- Listage de la structure de la table autoevaluationsql. realisateur
 DROP TABLE IF EXISTS `realisateur`;

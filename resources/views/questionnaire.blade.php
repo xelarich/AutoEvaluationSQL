@@ -18,11 +18,11 @@
                                     <div class="row">
                                         <div class="input-group">
                                             @if (!empty($sql))
-                                            <input class="form-control" name="requete"
-                                                   placeholder="Entrez votre requête" value=" {{ $sql }} " required>
-                                                @else
                                                 <input class="form-control" name="requete"
-                                                       placeholder="Entrez votre requête"  required>
+                                                       placeholder="Entrez votre requête" value=" {{ $sql }} " required>
+                                            @else
+                                                <input class="form-control" name="requete"
+                                                       placeholder="Entrez votre requête" required>
                                             @endif
                                         </div>
                                     </div>
@@ -67,20 +67,7 @@
                                                     </tbody>
                                                 </table>
                                                 <hr>
-                                                <div class="row">
-                                                    @if(!empty($traitement))
-                                                        <div class="input-group offset-2 col-2">
-                                                            <?php $id = $question->idQ + 1;?>
-                                                            <input type="submit"
-                                                                   class="btn btn-outline-dark"
-                                                                   name="Passer"
-                                                                   value="Passer la question"
-                                                                   formaction="{{ url('questionnaire?question='.$id)  }}">
-                                                        </div>
-                                                    @endif
-                                                </div>
                                                 @endif
-
                                                 @else
                                                     Aucune requête mentionnée
                                             </div>
@@ -92,14 +79,16 @@
                                                        formaction="{{ url('questionnaireValidate?question='.$question->idQ) }}">
                                             </div>
                                         </div>
-                                        <div class="input-group offset-2 col-2">
-                                            <?php $id = $question->idQ + 1;?>
-                                            <input type="submit"
-                                                   class="btn btn-outline-dark"
-                                                   name="Passer"
-                                                   value="Question Suivante"
-                                                   formaction="{{ url('questionnaire?question='.$id)  }}">
-                                        </div>
+                                        @if (!empty($good) and $good = true)
+                                            <div class="input-group justify-content-center">
+                                                <?php $id = $question->idQ + 1;?>
+                                                <input type="submit"
+                                                       class="btn btn-outline-dark"
+                                                       name="Passer"
+                                                       value="Question Suivante"
+                                                       formaction="{{ url('questionnaire?question='.$id)  }}">
+                                            </div>
+                                        @endif
                                 </form>
                             </div>
                         </div>
